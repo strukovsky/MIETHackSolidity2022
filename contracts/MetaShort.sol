@@ -15,6 +15,7 @@ contract MetaShort is ERC20, ERC20Burnable, AccessControl {
     }
 
     function mint(address account, uint256 amount) public {
+        require(hasRole(MINTER_ROLE, msg.sender), "should be minter");
         _mint(account, amount);
     }
 }

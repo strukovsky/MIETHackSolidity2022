@@ -6,7 +6,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     await deploy("MetaShort", {
         from: deployer,
         args: [],
-        log: true
+        log: true,
     });
 }
 

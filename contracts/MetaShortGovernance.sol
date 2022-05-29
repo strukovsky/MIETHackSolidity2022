@@ -51,12 +51,12 @@ contract MetaShortGovernance is AccessControl {
 
     function registerAdvertiser(address advertiser) public {
         require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "Should be admin");
-        _grantRole(ADVERTISER_ROLE, advertiser);
+        grantRole(ADVERTISER_ROLE, advertiser);
     }
 
     function registerBlogger(address blogger) public {
         require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "Should be admin");
-        _grantRole(BLOGGER_ROLE, blogger);
+        grantRole(BLOGGER_ROLE, blogger);
     }
 
     function publishAdvertisement(
@@ -124,6 +124,14 @@ contract MetaShortGovernance is AccessControl {
             token.transfer(msg.sender, advertisement.totalCalculatedPrice);
         }
         bloggersCurrentAdvertisement[msg.sender] = 0;
+    }
+
+    function getCurrentActiveAdvertisement(address blogger) public view returns(uint256) {
+        return bloggersCurrentAdvertisement[blogger];
+    }
+
+    function getAdvertisement(uint256 id) public view returns (Advertisement memory){
+        return advertisements[id];
     }
 
     function sendActivity(uint256 advertisementId, uint256 reactions, uint256 comments) public {
